@@ -1,0 +1,168 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="mt-4 row">
+    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 col-12">
+        <div class="form-group">
+            <div class="searchbox">
+                <a href="#" onclick="SearchItem()">
+                    <img class="search-icon" src="newfolder/search_icon.png" />
+                </a>
+                <input type="search" class="form-control emp-search" placeholder="Search" data-table="order-table" id="searchfield">
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-7 col-md-7"></div>
+    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 col-12 text-right">
+        <button type="button" class="btn AddNewBtn">Export to Excel</button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="table-container">
+            <div class="modal_panel">
+                <table class="table table-condensed" id="userTable">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>User Name</th>
+                            <th>Department</th>
+                            <th>CNIC</th>
+                            <th>Mobile</th>
+                            <th>Zone</th>
+                            <th>Sector</th>
+                            <th>Sub Sector</th>
+                            <th>Beat</th>
+                            <th>Scale Type</th>
+                            <th>Scale No</th>
+                            <th>Designation</th>
+                            <th>Wing</th>
+                            <th>Directorate</th>
+                            <th>Division</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Dynamic rows will be appended here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function SearchItem() {
+        // Your search logic here
+    }
+
+    $(document).ready(function () {
+        // Example JSON data
+        var jsonData = [
+            {
+                "userName": "John Doe",
+                "department": "HR",
+                "cnic": "12345-6789012-3",
+                "mobile": "1234567890",
+                "zone": "Zone ",
+                "sector": "Sector ",
+                "subSector": "Sub Sector ",
+                "beat": "Beat ",
+                "scaleType": "Type ",
+                "scaleNo": "1",
+                "designation": "Manager",
+                "wing": "Wing 1",
+                "directorate": "Directorate ",
+                "division": "Division ",
+                "details": {
+                    "employeeId": "E001",
+                    "employeeName": "Jane Doe",
+                    "employeeCnic": "12345-6789012-3",
+                    "employeeMobile": "0987654321",
+                    "employeeWing": "Wing1",
+                    "employeeDirectorate": "Directorate1",
+                    "employeeDivision": "Division1",
+                    "scaleType": "Type1",
+                    "scaleNo": "Scale1",
+                    "employeeType": "Permanent"
+                }
+            }
+            // ... More user data
+        ];
+
+        // Function to render table rows from JSON data
+        function renderTable(data) {
+            var tableBody = $('#userTable tbody');
+            tableBody.empty(); // Clear existing rows
+
+            data.forEach(function (item) {
+                var mainRow = `
+                            <tr>
+                                    <td><a href="#" class="toggle-details"><i class="fa fa-chevron-down"></i></a></td>
+                                <td>${item.userName}</td>
+                                <td>${item.department}</td>
+                                <td>${item.cnic}</td>
+                                <td>${item.mobile}</td>
+                                <td>${item.zone}</td>
+                                <td>${item.sector}</td>
+                                <td>${item.subSector}</td>
+                                <td>${item.beat}</td>
+                                <td>${item.scaleType}</td>
+                                <td>${item.scaleNo}</td>
+                                <td>${item.designation}</td>
+                                <td>${item.wing}</td>
+                                <td>${item.directorate}</td>
+                                <td>${item.division}</td>
+                            </tr>
+                            <tr class="details-row" style="display: none;">
+                                <td colspan="15">
+                                    <table class="table table-condensed">
+                                        <thead>
+                                            <tr>
+                                                     <th>Employee ID</th>
+                                            <th>Employee Name</th>
+                                            <th>Employee CNIC</th>
+                                            <th>Employee Mobile</th>
+                                            <th>Employee Wing</th>
+                                            <th>Employee Directorate</th>
+                                            <th>Employee Division</th>
+                                            <th>Scale Type</th>
+                                            <th>Scale No</th>
+                                            <th>Employee Type</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+
+                                                             <td>${item.details.employeeId}</td>
+                                                    <td>${item.details.employeeName}</td>
+                                                    <td>${item.details.employeeCnic}</td>
+                                                    <td>${item.details.employeeMobile}</td>
+                                                    <td>${item.details.employeeWing}</td>
+                                                    <td>${item.details.employeeDirectorate}</td>
+                                                    <td>${item.details.employeeDivision}</td>
+                                                    <td>${item.details.scaleType}</td>
+                                                    <td>${item.details.scaleNo}</td>
+                                                    <td>${item.details.employeeType}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        `;
+                tableBody.append(mainRow);
+            });
+        }
+
+        // Initial render
+        renderTable(jsonData);
+
+        // Toggle details row visibility
+        $(document).on('click', '.toggle-details', function (e) {
+            e.preventDefault();
+            var row = $(this).closest("tr").next(".details-row");
+            row.toggle();
+        });
+    });
+</script>

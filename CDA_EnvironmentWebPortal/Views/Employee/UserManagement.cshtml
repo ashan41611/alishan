@@ -1,0 +1,106 @@
+﻿@{
+    ViewData["Title"] = "User Management";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section StyleSheets {
+    <link rel="stylesheet" href="~/css/table.css" asp-append-version="true">
+}
+
+<div class="d-flex justify-content-between mb-2">
+    <button type="button" onclick='RedirectToAddScreen()' class="btn btn-primary"><i class="fas fa-plus"></i>&nbsp;Add New</button>
+    <div id="search-container" class="d-flex align-items-center">
+        <label for="search-input" class="mr-2 mb-0">Search:</label>
+        <input type="text" id="search-input" class="form-control" style="width: 200px;" placeholder="Search by name...">
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="table-container table-responsive">
+            <div class="modal_panel">
+                <table id="employeeDutyRosterTable" class="table table-light" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Department</th>
+                            <th>Name</th>
+                            <th>CNIC</th>
+                            <th>Mobile</th>
+                            <th>Zone</th>
+                            <th>Sector</th>
+                            <th>Sub Sector</th>
+                            <th>Beat</th>
+                            <th>Scale Type</th>
+                            <th>Wing</th>
+                            <th>Directorate</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+    function RedirectToAddScreen() {
+        location.href = "/Employee/Register";
+    }
+
+    $(document).ready(function () {
+        var employeeTable = $('#employeeDutyRosterTable').DataTable({
+            "processing": true,
+            "serverSide": true,
+             
+            "responsive": {
+                details: {
+                    type: 'column',
+                    target: 'tr'
+                }
+            },
+            "columnDefs": [{ "width": "10%", "targets": 1 }],
+            "ordering": false,
+            "dom": '<"top">rt<"bottom"lip><"clear">',
+            "ajax": {
+                "url": "/Employee/GetDutyRoster",
+                "type": "POST"
+            },
+            "columns": [
+                { "class": "text-justify", "data": "supervisorDepartment" },
+                { "class": "text-justify", "data": "supervisorUsername" },
+                { "class": "text-justify", "data": "supervisorCNIC" },
+                { "class": "text-justify", "data": "supervisorMobile" },
+                { "class": "text-justify", "data": "supervisorZone" },
+                { "class": "text-justify", "data": "supervisorSector" },
+                { "class": "text-justify", "data": "supervisorSubSector" },
+                { "class": "text-justify", "data": "supervisorBeat" },
+                { "class": "text-justify", "data": "supervisorScaleType" },
+                { "class": "text-justify", "data": "supervisorWing" },
+                { "class": "text-justify", "data": "supervisorDirectorate" },
+                {
+                    "class": "text-justify",
+                    "data": null,
+                    "render": function (data, type, row) {
+                        return '<a href="/Employee/UserEdit?id=' + row.supervisorID + '"><i class="fa fa-edit"></i></a>';
+                    }
+                }
+            ],
+            "pagingType": "full_numbers",
+            "language": {
+                "paginate": {
+                    "first": "<<",
+                    "last": ">>",
+                    "next": ">",
+                    "previous": "<"
+                }
+            }
+        });
+
+        // Custom search input functionality
+        $('#search-input').on('keyup', function () {
+            employeeTable.search(this.value).draw();
+        });
+    });
+</script>
+}

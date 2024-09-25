@@ -1,0 +1,146 @@
+﻿@model IEnumerable<GetDutyRoasterVm>
+@{
+    ViewData["Title"] = "Duty Roster Management";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section StyleSheets {
+    <link rel="stylesheet" href="~/css/table.css" asp-append-version="true">
+}
+
+
+<div class="d-flex justify-content-between mb-2">
+    <div id="search-container" class="d-flex align-items-center">
+        <label for="search-input" class="mr-2 mb-0">Search:</label>
+        <input type="text" id="search-input" class="form-control" style="width: 200px;" placeholder="Search by name...">
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="table-container table-responsive">
+            <div class="modal_panel">
+                <table id="employeeDutyRosterTable" class="table table-light" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Members</th>
+                            <th>Department</th>
+                            <th>Name</th>
+                            <th>CNIC</th>
+                            <th>Mobile</th>
+                            <th>Zone</th>
+                            <th>Sector</th>
+                            <th>Sub Sector</th>
+                            <th>Beat</th>
+                            <th>Scale Type</th>
+                            <th>Wing</th>
+                            <th>Directorate</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
+
+ <script>
+    $(document).ready(function () {
+        var employeeTable = $('#employeeDutyRosterTable').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "responsive": true,
+            "ordering": false, 
+            "dom": '<"top">rt<"bottom"lip><"clear">', 
+            "ajax": {
+                "url": "/Employee/GetDutyRoster",
+                "type": "POST"
+            },
+            "columns": [
+                {
+                    "data": null,
+                    "render": function (data, type, row) {
+                        return '<a href="#" class="view-members" data-id="' + row.supervisorID + '"><i class="fa fa-plus"></i></a>';
+                    }
+                },
+                { "data": "supervisorDepartment" },
+                { "data": "supervisorUsername" },
+                { "data": "supervisorCNIC" },
+                { "data": "supervisorMobile" },
+                { "data": "supervisorZone" },
+                { "data": "supervisorSector" },
+                { "data": "supervisorSubSector" },
+                { "data": "supervisorBeat" },
+                { "data": "supervisorScaleType" },
+                { "data": "supervisorWing" },
+                { "data": "supervisorDirectorate" }
+            ],
+            "pagingType": "full_numbers",
+            "language": {
+                "paginate": {
+                    "first": "<<",
+                    "last": ">>",
+                    "next": ">",
+                    "previous": "<"
+                }
+            }
+        });
+
+        $('#search-input').on('keyup', function () {
+            employeeTable.search(this.value).draw();
+        });
+
+        $('#employeeDutyRosterTable tbody').on('click', '.view-members', function () {
+            var supervisorId = $(this).data('id');
+            var tr = $(this).closest('tr');
+            var row = employeeTable.row(tr);
+            var element = $(this);
+
+            if (row.child.isShown()) {
+                element.html('<i class="fa fa-plus"></i>');
+                row.child.hide();
+                tr.removeClass('shown');
+            } else {
+                $.ajax({
+                    url: '/Employee/GetMembers',
+                    type: 'POST',
+                    data: {
+                        draw: 1,
+                        start: 0,
+                        length: 10,
+                        supervisorId: supervisorId
+                    },
+                    success: function (data) {
+                        var membersTable = '<table class="table" style="width: 100%;">' +
+                            '<thead><tr>' +
+                            '<th>Name</th>' +
+                            '<th>CNIC</th>' +
+                            '<th>Mobile</th>' +
+                            '</tr></thead><tbody>';
+
+                        $.each(data.data, function (i, member) {
+                            membersTable += '<tr>' +
+                                '<td>' + member.employeeName + '</td>' +
+                                '<td>' + member.employeeCNIC + '</td>' +
+                                '<td>' + member.employeeMobile + '</td>' +
+                                '</tr>';
+                        });
+
+                        membersTable += '</tbody></table>';
+
+                        row.child(membersTable).show();
+                        tr.addClass('shown');
+                        element.html('<i class="fa fa-minus"></i>');
+                    }
+                });
+            }
+        });
+    });
+</script>
+
+
+}

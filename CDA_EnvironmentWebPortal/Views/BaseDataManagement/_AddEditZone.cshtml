@@ -1,0 +1,19 @@
+﻿@model Zone
+
+
+<br />
+<br />
+
+
+<form id="zone-form" asp-action="SaveZone" method="post">
+    <div class="form-group">
+        <label asp-for="ZoneName"></label>
+        <input asp-for="ZoneName" class="form-control" />
+        <span asp-validation-for="ZoneName" class="text-danger"></span>
+    </div>
+    <input type="hidden" asp-for="ZoneId" />
+    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="button" class="btn btn-secondary" onclick="AddEditCancle()">Cancel</button>
+</form>
+<br />
+<br />

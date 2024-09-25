@@ -1,0 +1,135 @@
+﻿<div class="panel_1 panel-default">
+    <div class="panel-header pb-3">
+
+
+     
+
+</div>
+
+
+
+    <div class="panel-body">
+        <div>
+            <button type="button" class="btn btn-primary" id="ADDZONEBTN" onclick="AddZone()">
+                
+                <i class="fas fa-plus"></i>&nbsp;Add New</button>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="modal_panel">
+            <div id="AddEditZone-Partial">
+            </div>
+            </div>
+            </div>
+
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-container table-responsive">
+                    <div class="modal_panel">
+                        <table id="GetZone" class="table table-light" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Zone</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        </div>
+</div>
+
+
+
+
+<script>
+
+    function AddZone() {
+        $('#ADDZONEBTN').hide();
+        App.AjaxPartail("/BaseDataManagement/AddEditZone", "AddEditZone-Partial")
+    }
+    function EditZone(zoneId) {
+        $('#ADDZONEBTN').hide();
+        App.AjaxPartail("/BaseDataManagement/AddEditZone?id="+zoneId , "AddEditZone-Partial")
+    }
+  function  AddEditCancle()
+    {
+        $('#ADDZONEBTN').show();
+    $('#AddEditZone-Partial').html('');
+        $("#GetZone").DataTable().ajax.reload();
+    }
+
+
+    $(document).on('submit', '#zone-form', function (e) {
+        e.preventDefault();
+        var form = $(this);
+        $.ajax({
+            url: form.attr('action'),
+            type: form.attr('method'),
+            data: form.serialize(),
+            success: function (data) {
+                Swal.fire(data.msg);
+                AddEditCancle()
+            }
+        });
+    });
+  
+
+
+
+    $(document).ready(function () {
+        var employeeTable = $('#GetZone').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "responsive": {
+                details: {
+                    type: 'column',
+                    target: 'tr'
+                }
+            },
+            "columnDefs": [{ "width": "10%", "targets": 1 }],
+            "ordering": false,
+            "dom": '<"top"f>rt<"bottom"lip><"clear">',
+            "ajax": {
+                "url": "/BaseDataManagement/Zone",
+                "type": "POST"
+            },
+            "columns": [
+           
+                { "class": "text-justify", "data": "zoneName" },
+             
+                {
+                    "class": "text-justify",
+                    "data": null,
+                    "render": function (data, type, row) {
+                        return '<button style="Border:none;" onclick="EditZone(' + row.zoneId + ')"><i class="fa fa-edit"></i></button>';
+
+                    }
+                }
+            ],
+            "pagingType": "full_numbers",
+            "language": {
+                "paginate": {
+                    "first": "<<",
+                    "last": ">>",
+                    "next": ">",
+                    "previous": "<"
+                }
+            }
+        });
+
+
+    });
+
+
+
+
+</script>

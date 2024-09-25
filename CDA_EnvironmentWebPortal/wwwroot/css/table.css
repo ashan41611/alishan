@@ -1,0 +1,86 @@
+.card-body {
+    padding: 2rem;
+}
+
+.table-container {
+    max-height: 550px;
+    overflow-y: auto;
+}
+
+tbody {
+    max-height: 30px;
+    overflow-y: auto;
+}
+
+
+.table-container {
+    position: relative;
+}
+
+.table-container table thead {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: white; /* Ensure background is not transparent */
+}
+
+.dataTables_wrapper .dataTables_paginate {
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+
+.bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin: 20px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+    border-radius: 10px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+table.dataTable {
+    padding: 10px;
+}
+
+.table .table {
+    margin-top: 10px;
+}
+
+.table.table.dataTable tbody th {
+    background: #d6ede4;
+}
+
+table.dataTable thead th, table.dataTable thead td {
+    background-color: #d6ede4;
+}
+
+div.dataTables_wrapper div.dataTables_filter label  {
+    padding: 10px;
+}
+
+div.dataTables_wrapper div.dataTables_filter {
+    display: flex;
+}
+
+.search-input {
+    margin-bottom: 0 !important;
+}
+
+.form-control {
+    font-size: 14px;
+}
+
+/* Add this CSS in your table.css file if needed */
+
+.d-flex .justify-content-between {
+    margin-top: 10px;
+}

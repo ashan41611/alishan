@@ -1,0 +1,130 @@
+﻿@{
+    ViewData["Title"] = "Base Data Management";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+
+    .nav{
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: scroll;
+        overflow-y: hidden;
+    }
+
+</style>
+
+<div class="container-fluid" id="BaseData">
+    <div class="pt-3">
+
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+
+                <ul class="nav nav-tabs justify-content-start" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active" id="Zone-tab" data-toggle="tab" href="#Zone" role="tab" aria-controls="Zone" aria-selected="true" onclick="Zone()" style="width:150px">Zone</a>
+                    </li>
+                     <li class="nav-item" role="presentation">
+                        <a class="nav-link " id="Sector-tab" data-toggle="tab" href="#Sector" role="tab" aria-controls="Sector" aria-selected="true" onclick="Sector()" style="width:150px">Sector</a>
+                    </li>
+                     <li class="nav-item" role="presentation">
+                        <a class="nav-link " id="SubSector-tab" data-toggle="tab" href="#SubSector" role="tab" aria-controls="SubSector" aria-selected="true" onclick="SubSector()" style="width:150px">SubSector</a>
+                    </li>
+                     <li class="nav-item" role="presentation">
+                        <a class="nav-link " id="Beat-tab" data-toggle="tab" href="#Beat" role="tab" aria-controls="Beat" aria-selected="true" onclick="Beat()" style="width:150px">Beat</a>
+                    </li>
+                     <li class="nav-item" role="presentation">
+                        <a class="nav-link " id="ScaleType-tab" data-toggle="tab" href="#ScaleType" role="tab" aria-controls="ScaleType" aria-selected="true" onclick="ScaleType()" style="width:150px">ScaleType</a>
+                    </li>
+                     <li class="nav-item" role="presentation">
+                        <a class="nav-link " id="ScaleNo-tab" data-toggle="tab" href="#ScaleNo" role="tab" aria-controls="ScaleNo" aria-selected="true" onclick="ScaleNo()" style="width:150px">ScaleNo</a>
+                    </li>
+                     <li class="nav-item" role="presentation">
+                        <a class="nav-link " id="EmployeeType-tab" data-toggle="tab" href="#EmployeeType" role="tab" aria-controls="EmployeeType" aria-selected="true" onclick="EmployeeType()" style="width:150px">EmployeeType</a>
+                    </li>
+                     <li class="nav-item" role="presentation">
+                        <a class="nav-link " id="Designation-tab" data-toggle="tab" href="#Designation" role="tab" aria-controls="Designation" aria-selected="true" onclick="Designation()" style="width:150px">Designation</a>
+                    </li>
+                     <li class="nav-item" role="presentation">
+                        <a class="nav-link " id="Wing-tab" data-toggle="tab" href="#Wing" role="tab" aria-controls="Wing" aria-selected="true" onclick="Wing()" style="width:150px">Wing</a>
+                    </li>
+                     <li class="nav-item" role="presentation">
+                        <a class="nav-link " id="Directorate-tab" data-toggle="tab" href="#Directorate" role="tab" aria-controls="Directorate" aria-selected="true" onclick="Directorate()" style="width:150px">Directorate</a>
+                    </li>      <li class="nav-item" role="presentation">
+                        <a class="nav-link " id="Zone-tab" data-toggle="tab" href="#Division" role="tab" aria-controls="Division" aria-selected="true" onclick="Division()" style="width:150px">Division</a>
+                    </li>
+
+
+                  
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="ballot" role="tabpanel" aria-labelledby="ballot-tab">
+
+                        <div id="BaseDataManagement-Partial">
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    $(document).ready(function () {
+        App.AjaxPartail("/BaseDataManagement/Zone", "BaseDataManagement-Partial")
+    });
+
+   
+    function Zone() {
+        debugger
+        App.AjaxPartail("/BaseDataManagement/Zone", "BaseDataManagement-Partial")
+    }
+    function Sector() {
+        debugger
+        App.AjaxPartail("/BaseDataManagement/Sector", "BaseDataManagement-Partial")
+    }
+    function SubSector() {
+        debugger
+        App.AjaxPartail("/BaseDataManagement/SubSector", "BaseDataManagement-Partial")
+    }
+    function Beat() {
+        debugger
+        App.AjaxPartail("/BaseDataManagement/Beat", "BaseDataManagement-Partial")
+    }
+    function ScaleType() {
+        debugger
+        App.AjaxPartail("/BaseDataManagement/ScaleType", "BaseDataManagement-Partial")
+    }
+    function ScaleNo() {
+        debugger
+        App.AjaxPartail("/BaseDataManagement/ScaleNo", "BaseDataManagement-Partial")
+    }
+    function EmployeeType() {
+        debugger
+        App.AjaxPartail("/BaseDataManagement/EmployeeType", "BaseDataManagement-Partial")
+    }
+    function Designation() {
+        debugger
+        App.AjaxPartail("/BaseDataManagement/Designation", "BaseDataManagement-Partial")
+    }
+    function Wing() {
+        debugger
+        App.AjaxPartail("/BaseDataManagement/Wing", "BaseDataManagement-Partial")
+    }
+    function Directorate() {
+        debugger
+        App.AjaxPartail("/BaseDataManagement/Directorate", "BaseDataManagement-Partial")
+    }
+    function Division() {
+        debugger
+        App.AjaxPartail("/BaseDataManagement/Division", "BaseDataManagement-Partial")
+    }
+
+
+
+</script>

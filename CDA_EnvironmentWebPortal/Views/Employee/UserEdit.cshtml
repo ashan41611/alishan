@@ -1,0 +1,276 @@
+﻿@model DropdownViewModelEdit
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section StyleSheets {
+    <link rel="stylesheet" href="~/css/data-tables.css" asp-append-version="true">
+}
+
+<form asp-action="UserEdit" method="post" class="needs-validation" novalidate>
+     <div class="breadcrumb-wrapper">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="/Employee/UserManagement">
+                    <i class="fas  fa-angle-left"></i> Back
+                </a>
+            </li>
+        </ol>
+    </div>
+    <input type="hidden" asp-for="User.userid" />
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="User.Username" class="control-label"></label>
+                <input asp-for="User.Username" class="form-control" onkeypress="return isAlphabet(event)"/>
+                <span asp-validation-for="User.Username" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="User.RoleID" class="control-label"></label>
+                <select asp-for="User.RoleID" class="form-control form-select"
+                    asp-items="@(new SelectList(Model.Roles, "id", "RoleName"))">
+                    <option value="">Select Role</option>
+                </select>
+                <span asp-validation-for="User.RoleID" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="User.Department" class="control-label"></label>
+                <input asp-for="User.Department" class="form-control" />
+                <span asp-validation-for="User.Department" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="User.CNIC" class="control-label"></label>
+                <input asp-for="User.CNIC" class="form-control"  maxlength="13" onkeypress="return isNumeric(event)" onkeyup="handleKeyUp(event)"/>
+                <span asp-validation-for="User.CNIC" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+
+            <div class="form-group">
+                <label asp-for="User.Mobile" class="control-label"></label>
+                <input asp-for="User.Mobile" class="form-control" maxlength="11" onkeypress="return isNumeric(event)" onkeyup="handleKeyUp(event)"/>
+                <span asp-validation-for="User.Mobile" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="User.ZoneId" class="control-label">Zone</label>
+                <select asp-for="User.ZoneId" class="form-control form-select"
+                    asp-items="@(new SelectList(Model.Zones, "ZoneId", "ZoneName"))">
+                    <option value="">Select Zone</option>
+                </select>
+                <span asp-validation-for="User.ZoneId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="User.SectorId" class="control-label">Sector</label>
+                <select asp-for="User.SectorId" class="form-control form-select"
+                    asp-items="@(new SelectList(Model.Sectors, "SectorId", "SectorName"))">
+                    <option value="">Select Sector</option>
+                </select>
+                <span asp-validation-for="User.SectorId" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="User.SubSectorId" class="control-label">Sub Sector</label>
+                <select asp-for="User.SubSectorId" class="form-control form-select"
+                    asp-items="@(new SelectList(Model.Sectors, "SectorId", "SectorName"))">
+                    <option value="">Select SubSector</option>
+                </select>
+                <span asp-validation-for="User.SubSectorId" class="text-danger"></span>
+            </div>
+        </div>
+       
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="User.BeatId" class="control-label">Beat</label>
+                <select asp-for="User.BeatId" class="form-control form-select"
+                    asp-items="@(new SelectList(Model.Sectors, "SectorId", "SectorName"))">
+                    <option value="">Select Beat</option>
+                </select>
+                <span asp-validation-for="User.BeatId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="User.ScaleTypeId" class="control-label">Scale Type</label>
+                <select asp-for="User.ScaleTypeId" class="form-control form-select"
+                    asp-items="@(new SelectList(Model.ScaleTypes, "ScaleTypeId", "ScaleTypeName"))">
+                    <option value="">Select Scale Type</option>
+                </select>
+                <span asp-validation-for="User.ScaleTypeId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="User.ScaleNoId" class="control-label">Scale No</label>
+                <select asp-for="User.ScaleNoId" class="form-control form-select"
+                    asp-items="@(new SelectList(Model.ScaleNos, "ScaleNoId", "ScaleNoName"))">
+                    <option value="">Select Scale No</option>
+                </select>
+                <span asp-validation-for="User.ScaleNoId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="User.EmployeeTypeId" class="control-label">Employee Type</label>
+                <select asp-for="User.EmployeeTypeId" class="form-control form-select"
+                    asp-items="@(new SelectList(Model.EmployeeTypes, "EmployeeTypeId", "EmployeeTypeName"))">
+                    <option value="">Select Employee Type</option>
+                </select>
+                <span asp-validation-for="User.EmployeeTypeId" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="User.DesignationId" class="control-label">Designation</label>
+                <select asp-for="User.DesignationId" class="form-control form-select"
+                    asp-items="@(new SelectList(Model.Designations, "DesignationId", "DesignationName"))">
+                    <option value="">Select Designation</option>
+                </select>
+                <span asp-validation-for="User.DesignationId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="User.WingId" class="control-label">Wing</label>
+                <select asp-for="User.WingId" class="form-control form-select"
+                    asp-items="@(new SelectList(Model.Wings, "WingId", "WingName"))">
+                    <option value="">Select Wing</option>
+                </select>
+                <span asp-validation-for="User.WingId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="User.DirectorateId" class="control-label">Directorate</label>
+                <select asp-for="User.DirectorateId" class="form-control form-select"
+                    asp-items="@(new SelectList(Model.Directorates, "DirectorateId", "DirectorateName"))">
+                    <option value="">Select Directorate</option>
+                </select>
+                <span asp-validation-for="User.DirectorateId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="User.DivisionId" class="control-label">Division</label>
+                <select asp-for="User.DivisionId" class="form-control form-select"
+                    asp-items="@(new SelectList(Model.Divisions, "DivisionId", "DivisionName"))">
+                    <option value="">Select Division</option>
+                </select>
+                <span asp-validation-for="User.DivisionId" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<script>
+    $(document).ready(function () {
+        $('#User_ZoneId').change(function () {
+            var zoneId = $(this).val();
+            $('#User_SectorId').empty().append('<option value="">Select Sector</option>');
+            $('#User_SubSectorId').empty().append('<option value="">Select SubSector</option>');
+            $('#User_BeatId').empty().append('<option value="">Select Beat</option>');
+
+            if (zoneId) {
+                $.getJSON('/Dropdown/GetSectors', { zoneId: zoneId }, function (data) {
+                    $.each(data, function (index, item) {
+                        $('#User_SectorId').append($('<option>', {
+                            value: item.sectorId,
+                            text: item.sectorName
+                        }));
+                    });
+                });
+            }
+        });
+
+        $('#User_SectorId').change(function () {
+            var sectorId = $(this).val();
+            $('#User_SubSectorId').empty().append('<option value="">Select SubSector</option>');
+            $('#User_BeatId').empty().append('<option value="">Select Beat</option>');
+
+            if (sectorId) {
+                $.getJSON('/Dropdown/GetSubSectors', { sectorId: sectorId }, function (data) {
+                    $.each(data, function (index, item) {
+                        $('#User_SubSectorId').append($('<option>', {
+                            value: item.subSectorId,
+                            text: item.subSectorName
+                        }));
+                    });
+                });
+            }
+        });
+
+        $('#User_SubSectorId').change(function () {
+            var subSectorId = $(this).val();
+            $('#User_BeatId').empty().append('<option value="">Select Beat</option>');
+
+            if (subSectorId) {
+                $.getJSON('/Dropdown/GetBeats', { subSectorId: subSectorId }, function (data) {
+                    $.each(data, function (index, item) {
+                        $('#User_BeatId').append($('<option>', {
+                            value: item.beatId,
+                            text: item.beatName
+                        }));
+                    });
+                });
+            }
+        });
+
+        $('#User_WingId').change(function () {
+            var wingId = $(this).val();
+            $('#User_DirectorateId').empty().append('<option value="">Select Directorate</option>');
+            $('#User_DivisionId').empty().append('<option value="">Select Division</option>');
+
+            if (wingId) {
+                $.getJSON('/Dropdown/GetDirectorates', { wingId: wingId }, function (data) {
+                    $.each(data, function (index, item) {
+                        $('#User_DirectorateId').append($('<option>', {
+                            value: item.directorateId,
+                            text: item.directorateName
+                        }));
+                    });
+                });
+            }
+        });
+
+        $('#User_DirectorateId').change(function () {
+            var directorateId = $(this).val();
+            $('#User_DivisionId').empty().append('<option value="">Select Division</option>');
+
+            if (directorateId) {
+                $.getJSON('/Dropdown/GetDivisions', { directorateId: directorateId }, function (data) {
+                    $.each(data, function (index, item) {
+                        $('#User_DivisionId').append($('<option>', {
+                            value: item.divisionId,
+                            text: item.divisionName
+                        }));
+                    });
+                });
+            }
+        });
+    });
+</script>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+}

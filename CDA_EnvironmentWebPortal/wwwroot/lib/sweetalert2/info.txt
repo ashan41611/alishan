@@ -1,0 +1,7 @@
+Sweet Alert 2
+-------------
+
+Site:        https://sweetalert2.github.io/
+version:     11.10.8 (2024-04-17)
+GitHub:      https://github.com/sweetalert2/sweetalert2/releases/tag/v11.10.8
+
